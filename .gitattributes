@@ -1,0 +1,10 @@
+# 统一换行符策略
+#
+# 本仓库内容全部由 DidaOJ-web 的 vite build 生成，Vite 输出使用 LF；
+# 而本仓库原先没有任何属性声明，在 core.autocrlf=true 的 Windows 上会被检出为
+# CRLF，于是每次构建后 git add 都会刷出上百条
+# "LF will be replaced by CRLF the next time Git touches it" 警告。
+#
+# 显式指定 eol=lf，与构建产物的实际换行符保持一致。
+# 该设置只影响工作区与检出形式，仓库内始终以 LF 存储，不产生内容差异。
+* text=auto eol=lf
