@@ -25,11 +25,37 @@
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="DidaOJ - 在线评测系统，提供编程题目练习、比赛、讨论、代码评测等功能，支持多种编程语言。" />
+  <!-- 站点级默认 SEO 元信息：页面级内容由 src/util/seo.ts 在运行时覆盖（标题、描述、canonical、JSON-LD） -->
+  <meta name="description" content="DidaOJ 是一个在线评测系统（Online Judge），提供编程题目练习、比赛、讨论、题单与代码评测等功能，支持多种编程语言。" />
+  <meta name="keywords" content="DidaOJ,在线评测系统,OJ,编程题库,算法竞赛,代码评测,刷题" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="theme-color" content="#0052d9" />
+  <meta property="og:site_name" content="DidaOJ" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="DidaOJ - 在线评测系统" />
+  <meta property="og:description" content="DidaOJ 是一个在线评测系统（Online Judge），提供编程题目练习、比赛、讨论、题单与代码评测等功能，支持多种编程语言。" />
+  <meta property="og:url" content="https://oj.didapipa.com/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="DidaOJ - 在线评测系统" />
+  <meta name="twitter:description" content="DidaOJ 是一个在线评测系统（Online Judge），提供编程题目练习、比赛、讨论、题单与代码评测等功能，支持多种编程语言。" />
   <title>DidaOJ</title>
+  <!-- 站点级结构化数据。页面级结构化数据（题目/讨论）由 src/util/seo.ts 写入另一个
+       data-seo="page-jsonld" 的 script，两者互不覆盖。 -->
+  <script type="application/ld+json" data-seo="site-jsonld">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "DidaOJ",
+      "alternateName": "DidaOJ 在线评测系统",
+      "url": "https://oj.didapipa.com/",
+      "inLanguage": "zh-CN",
+      "description": "DidaOJ 是一个在线评测系统（Online Judge），提供编程题目练习、比赛、讨论、题单与代码评测等功能，支持多种编程语言。"
+    }
+  </script>
   <link rel="preconnect" href="https://r2-oj.didapipa.com" crossorigin />
   <link rel="dns-prefetch" href="https://r2-oj.didapipa.com" />
-  <script type="module" crossorigin src="/assets/index-CyXZ9inI.js"></script>
+  <script type="module" crossorigin src="/assets/index-BFk7PvJh.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/vendor-vue-CfaajVls.js">
   <link rel="modulepreload" crossorigin href="/assets/vite-preload-ckwbz45p.js">
   <link rel="modulepreload" crossorigin href="/assets/vendor-common-14wGOCmP.js">
@@ -40,7 +66,7 @@
   <link rel="modulepreload" crossorigin href="/assets/vendor-echarts-Cov-a0hn.js">
   <link rel="stylesheet" crossorigin href="/assets/vendor-tdesign-BxqjOqgx.css">
   <link rel="stylesheet" crossorigin href="/assets/vendor-hljs-ZgkIHsf0.css">
-  <link rel="stylesheet" crossorigin href="/assets/index-D0bzDxl7.css">
+  <link rel="stylesheet" crossorigin href="/assets/index-BxczeyXt.css">
 </head>
 <body>
 <div id="app"></div>
