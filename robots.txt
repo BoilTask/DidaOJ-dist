@@ -1,4 +1,72 @@
+# DidaOJ robots.txt
+#
+# 规则来源：DidaOJ-web/src/config/tab-config.ts 与 view-config.ts。
+# 「要不要挡」由路由 meta 的 needLogin / auths 推导（view-config.ts 的 needLogin 字段、
+# 各 manage-* 子页的 auths 门禁、tab-config.ts 的 ai / message tab 级 needLogin），
+# 路径形态与 router/index.ts 里 parseViewRouter 的拼接规则一致，逐条都对着代码确认过存在。
+#
+# 注意 Disallow 是前缀匹配，前缀写宽了会误伤公开页（例如 Disallow: /problem 会挡掉全部题目页），
+# 所以下面要么写到明确目录，要么写到完整路径。
+
 User-agent: *
 Allow: /
 
-Disallow: /manage/
+# 管理后台：tab-config.ts 的 manage tab 下全部子页（新建/编辑题目、站点管理、评测管理、
+# 系统消息、权限管理、AI 审阅/标签/厂商/系统配置等），每页另有自己的 auths 门禁。
+# 写 /manage 而不是 /manage/，这样容器路径 /manage 本身与其下所有子页一起盖住。
+Disallow: /manage
+
+# AI 教练：tab-config.ts 的 ai tab 整体 needLogin: true，
+# 对应 view-config.ts 的 ai-conversation（/ai/conversation）、
+# ai-conversation-detail（/ai/conversation/:id）、ai-stats（/ai/stats），全是个人会话与用量数据。
+Disallow: /ai
+
+# 私信：tab-config.ts 的 message tab，needLogin: true。
+Disallow: /message
+
+# 用户私有页：
+#   /user             —— tab-config.ts 的 user-modify（用户设置，登录后才有意义）
+#   /user/:username+  —— tab-config.ts 的 user（个人主页）
+# 个人页对搜索引擎没有收录价值，统一挡掉前缀 /user。
+Disallow: /user
+
+# 登录 / 注册 / 忘记密码：表单页，无收录价值。
+# 覆盖 tab-config.ts 的 login（/login）、register（/register）与 view-config.ts 的
+# login-forget（/login/forget）。
+Disallow: /login
+Disallow: /register
+
+# 评测记录：view-config.ts 的 judge-list（/judge）与 judge-detail（/judge/:judgeId+），
+# 是个人提交记录列表/详情，无收录价值。
+Disallow: /judge
+
+# 题目推荐：view-config.ts 的 problem-recommend，needLogin: true。
+Disallow: /problem/recommend
+
+# 新建页：以下路由在 view-config.ts 里显式 needLogin: true，未登录访问会被重定向到 /login。
+# 逐条写成完整路径（不用 /collection 之类的前缀），避免误伤题集列表与题集详情。
+#   collection-create  -> /collection/create
+#   contest-create     -> /contest/create
+#   discuss-create     -> /discuss/create
+#   bot-agent-create   -> /bot/agent/create
+#   bot-match-create   -> /bot/match/create（新建对局页，提交数据同样需要登录）
+Disallow: /collection/create
+Disallow: /contest/create
+Disallow: /discuss/create
+Disallow: /bot/agent/create
+Disallow: /bot/match/create
+
+# 编辑页：这些路由是「动态段 + /edit」，前缀（/collection、/contest、/discuss、/bot/agent）
+# 本身是公开页，不能用前缀规则表达，所以用 Google/Bing 支持的通配符精确到「以 /edit 结尾」。
+# 覆盖 view-config.ts 里 needLogin: true 的 collection-edit、contest-edit、discuss-edit、bot-agent-edit。
+# 不支持通配符的爬虫会把 /*/edit 当字面路径处理，匹配不到任何真实路径，不会造成误挡。
+Disallow: /*/edit
+
+# 测试数据管理：view-config.ts 的 manage-problem-judge（/problem/:problemKey/judge）与
+# manage-problem-judge-ai（/problem/:problemKey/judge/ai/:jobId?，另有 auths 门禁）；
+# 同理不能用 /problem 前缀表达。比赛内的评测列表 /contest/:contestId/judge 也一并挡掉。
+Disallow: /*/judge
+
+# 站点地图：由 scripts/generate-sitemap.mjs 在构建后生成到 dist/sitemap.xml。
+# 纯 SPA 若不显式产出该文件，/sitemap.xml 会被前端路由回落成 index.html。
+Sitemap: https://oj.didapipa.com/sitemap.xml
